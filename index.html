@@ -3,635 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saqib Visuals | Premium API Picks</title>
-    <!-- Tailwind CSS -->
+    <title>Saqib Gallery</title>
+    <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                    },
-                    animation: {
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulseSlow 4s ease-in-out infinite',
-                        'shimmer': 'shimmer 2.5s infinite linear',
-                        'border-glow': 'borderGlow 6s ease infinite',
-                    },
-                    keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px)' },
-                            '50%': { transform: 'translateY(-8px)' },
-                        },
-                        pulseSlow: {
-                            '0%, 100%': { opacity: '0.35' },
-                            '50%': { opacity: '0.75' },
-                        },
-                        borderGlow: {
-                            '0%': { backgroundPosition: '0% 50%' },
-                            '50%': { backgroundPosition: '100% 50%' },
-                            '100%': { backgroundPosition: '0% 50%' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
     <style>
-        body {
-            background-color: #07070a;
-            color: #f4f4f5;
-            overflow-x: hidden;
-        }
-
-        /* Glassmorphism styling */
-        .glass-box {
-            background: rgba(18, 18, 24, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .glass-box:hover {
-            border-color: rgba(168, 85, 247, 0.45);
-            box-shadow: 0 15px 35px -10px rgba(168, 85, 247, 0.2);
-        }
-
-        /* Animated Glowing Border */
-        .animated-glow-border {
-            position: relative;
-            border-radius: 1.25rem;
-            z-index: 1;
-        }
-        .animated-glow-border::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: inherit;
-            background: linear-gradient(115deg, #a855f7, #ec4899, #6366f1, #a855f7);
-            background-size: 300% 300%;
-            animation: borderGlow 6s ease infinite;
-            z-index: -1;
-            opacity: 0.6;
-            filter: blur(5px);
-        }
-
-        /* Animated Image Container with Holographic Shine */
-        .image-animated-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 1rem;
-        }
-        .image-animated-wrapper img {
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
-        }
-        .image-animated-wrapper:hover img {
-            transform: scale(1.07);
-            filter: brightness(1.08) contrast(1.05);
-        }
-        .image-animated-wrapper::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -150%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
-            transform: skewX(-25deg);
-            transition: 0.75s;
-        }
-        .image-animated-wrapper:hover::after {
-            left: 150%;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 7px; }
-        ::-webkit-scrollbar-track { background: #07070a; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a855f7; }
+        /* Custom scrollbar chupanay ke liye */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
     </style>
 </head>
-<body class="min-h-screen selection:bg-purple-500 selection:text-white relative">
+<body class="bg-[#0a0a0a] text-white min-h-screen font-sans pb-10">
 
-    <!-- Ambient Gradient Glows -->
-    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div class="absolute top-10 left-1/4 w-96 h-96 bg-purple-600/15 rounded-full blur-[130px] animate-pulse-slow"></div>
-        <div class="absolute top-1/2 right-1/4 w-96 h-96 bg-pink-600/15 rounded-full blur-[140px] animate-pulse-slow"></div>
-    </div>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 py-4 mb-4 shadow-lg">
+        <h1 class="text-2xl md:text-3xl font-black text-center tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+            Saqib Gallery
+        </h1>
+    </header>
 
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-
-        <!-- Top Header & Search -->
-        <header class="flex flex-wrap items-center justify-between gap-4 mb-10 glass-box p-4 sm:px-8 rounded-2xl">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                    <i class="fa-solid fa-wand-magic-sparkles text-white text-base"></i>
-                </div>
-                <div>
-                    <h2 class="font-bold text-lg tracking-wide text-white">SAQIB VISUALS</h2>
-                    <p class="text-xs text-zinc-400">Master API Showcase</p>
-                </div>
-            </div>
-
-            <!-- Search Bar -->
-            <div class="flex items-center gap-3 w-full sm:w-auto">
-                <div class="relative flex-1 sm:w-64">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
-                    <input type="text" id="search-input" placeholder="Search API picks..." 
-                        class="w-full pl-9 pr-4 py-2 bg-black/40 border border-white/10 rounded-xl text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 transition-colors">
-                </div>
-                <button onclick="fetchMyPicks()" title="Reload from API" class="p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-zinc-300 hover:text-white transition-all active:scale-95">
-                    <i class="fa-solid fa-arrows-rotate text-sm"></i>
-                </button>
-            </div>
-        </header>
-
-        <!-- Main Title -->
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-4 animate-float">
-                <i class="fa-solid fa-bolt text-yellow-400"></i> Direct API Connected
-            </div>
-            <h1 class="text-4xl sm:text-5xl font-black tracking-tight text-white mb-4">
-                Animated <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400">Visual Portfolio</span>
-            </h1>
-            <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
-                Projects and artworks fetched directly from your Master API Hub. Preview in animated format, download, or share with one click.
-            </p>
+    <main class="max-w-6xl mx-auto px-2 md:px-4">
+        
+        <!-- Status & Loading -->
+        <div id="status-message" class="hidden text-center text-red-400 text-sm font-bold bg-red-500/10 border border-red-500/20 rounded-lg p-3 my-4"></div>
+        
+        <div id="loading" class="flex flex-col items-center justify-center py-20">
+            <div class="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin shadow-[0_0_15px_rgba(6,182,212,0.5)]"></div>
+            <p class="mt-4 text-cyan-400/80 text-xs font-bold tracking-[0.2em] uppercase">Loading Photos...</p>
         </div>
 
-        <!-- Connection / Status Notification -->
-        <div id="status-message" class="hidden p-4 mb-8 rounded-2xl font-medium text-sm shadow-xl text-center max-w-2xl mx-auto transition-all"></div>
-
-        <!-- Loading Indicator -->
-        <div id="loading" class="text-center py-20">
-            <div class="w-12 h-12 border-4 border-purple-500/20 border-t-purple-500 rounded-full animate-spin mx-auto mb-4"></div>
-            <p class="text-purple-300 font-bold tracking-widest text-xs uppercase animate-pulse">Fetching data from API...</p>
+        <!-- 📸 MOBILE MEIN 2 GRIDS (grid-cols-2) AUR PORTRAIT -->
+        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 hidden">
+            <!-- Images will be injected here -->
         </div>
 
-        <!-- Picks Grid Container -->
-        <div id="picks-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 hidden">
-            <!-- Cards dynamically rendered from API -->
-        </div>
-
-        <!-- No Matching Items -->
-        <div id="no-results" class="hidden text-center py-16">
-            <p class="text-zinc-400 text-sm">No projects matched your search.</p>
-        </div>
-    </div>
-
-    <!-- Animated Lightbox Modal -->
-    <div id="lightbox-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-300">
-        <div id="modal-container" class="relative max-w-3xl w-full glass-box p-6 sm:p-8 rounded-3xl border border-white/20 transform scale-95 transition-all duration-300">
-            
-            <button onclick="closeModal()" class="absolute top-5 right-5 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-full flex items-center justify-center transition-all z-20">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <div class="flex flex-col md:flex-row gap-6 items-center">
-                <!-- Modal Image Showcase -->
-                <div class="w-full md:w-1/2">
-                    <div id="modal-img-wrapper" class="animated-glow-border overflow-hidden">
-                        <img id="modal-img" src="" alt="Preview" class="w-full h-72 sm:h-80 object-cover rounded-2xl shadow-2xl transition-transform duration-500 hover:scale-105">
-                    </div>
-                    <!-- Fallback placeholder container if pick has no image URL -->
-                    <div id="modal-no-img" class="hidden h-72 sm:h-80 rounded-2xl flex flex-col items-center justify-center p-6 text-center border border-white/10">
-                        <i class="fa-solid fa-wand-magic-sparkles text-4xl text-purple-400 mb-3"></i>
-                        <h4 id="modal-fallback-title" class="font-bold text-white text-lg">Visual Project</h4>
-                    </div>
-                </div>
-
-                <!-- Modal Details & Action Buttons -->
-                <div class="w-full md:w-1/2 flex flex-col justify-between">
-                    <div>
-                        <span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-300 text-xs font-bold rounded-lg mb-3 uppercase tracking-wider">Master Pick</span>
-                        <h3 id="modal-title" class="text-2xl font-extrabold text-white mb-2">Project Title</h3>
-                        <p id="modal-desc" class="text-zinc-400 text-sm mb-6 leading-relaxed">Description goes here.</p>
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="grid grid-cols-2 gap-3">
-                            <button id="modal-download-btn" class="flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-purple-600/30 active:scale-95">
-                                <i class="fa-solid fa-cloud-arrow-down text-sm"></i> Download
-                            </button>
-                            <button id="modal-share-btn" class="flex items-center justify-center gap-2 py-3 px-4 bg-white/10 hover:bg-white/20 text-white text-xs font-bold rounded-xl transition-all active:scale-95 border border-white/10">
-                                <i class="fa-solid fa-share-nodes text-sm"></i> Share
-                            </button>
-                        </div>
-                        <a id="modal-link-btn" href="#" target="_blank" class="flex items-center justify-center gap-2 py-2.5 px-4 bg-black/40 hover:bg-black/60 text-zinc-300 hover:text-white text-xs font-medium rounded-xl transition-all border border-white/5">
-                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Live Project
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Share Modal (for Desktop or fallback) -->
-    <div id="share-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-200">
-        <div class="glass-box max-w-sm w-full p-6 rounded-3xl border border-white/20 text-center relative">
-            <button onclick="closeShareModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            <h4 class="text-lg font-bold text-white mb-1">Share Project</h4>
-            <p class="text-xs text-zinc-400 mb-6">Select where you want to share this project:</p>
-
-            <div class="grid grid-cols-4 gap-3 mb-6">
-                <button onclick="shareToPlatform('whatsapp')" class="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 transition-all">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    <span class="text-[10px] font-semibold">WhatsApp</span>
-                </button>
-                <button onclick="shareToPlatform('twitter')" class="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 transition-all">
-                    <i class="fa-brands fa-x-twitter text-2xl"></i>
-                    <span class="text-[10px] font-semibold">Twitter</span>
-                </button>
-                <button onclick="shareToPlatform('telegram')" class="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-blue-500/10 hover:bg-blue-500/20 text-blue-400 transition-all">
-                    <i class="fa-brands fa-telegram text-2xl"></i>
-                    <span class="text-[10px] font-semibold">Telegram</span>
-                </button>
-                <button onclick="shareToPlatform('facebook')" class="flex flex-col items-center gap-1.5 p-3 rounded-2xl bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-400 transition-all">
-                    <i class="fa-brands fa-facebook-f text-2xl"></i>
-                    <span class="text-[10px] font-semibold">Facebook</span>
-                </button>
-            </div>
-
-            <!-- Copy Link -->
-            <div class="flex items-center gap-2 bg-black/50 p-1.5 pl-3 border border-white/10 rounded-xl">
-                <input id="share-link-input" type="text" readonly class="bg-transparent text-xs text-zinc-300 w-full focus:outline-none truncate">
-                <button onclick="copyShareLink()" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold transition-all whitespace-nowrap active:scale-95">
-                    Copy
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300 flex items-center gap-3 px-5 py-3 rounded-2xl bg-zinc-900 border border-purple-500/40 text-white text-sm shadow-2xl backdrop-blur-xl">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-purple-400"></i>
-        <span id="toast-text">Action completed</span>
-    </div>
+    </main>
 
     <script>
-        // Official API URL
-        const PICKS_API_URL = "https://mrsaqib242.vercel.app/api/public/picks";
+        const API_URL = "https://mrsaqib242.vercel.app/api/public/picks"; // Gallery API
 
-        let allPicks = [];
-
-        // Helper to extract image directly from API data
-        function extractApiImage(pick) {
-            if (!pick) return '';
-            // Checks all possible image keys coming from the API payload
-            return pick.image || pick.imageUrl || pick.img || pick.thumbnail || 
-                   pick.cover || pick.banner || pick.preview || pick.photo || 
-                   pick.picture || pick.media || (pick.image && pick.image.url) || '';
+        // Download Image Function (Direct Save to Device)
+        async function downloadImage(url, title) {
+            try {
+                // Button ko loading state dikhanay ke liye
+                const response = await fetch(url);
+                const blob = await response.blob();
+                const blobUrl = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.href = blobUrl;
+                link.download = title ? `SaqibGallery_${title.replace(/\s+/g, '_')}.jpg` : 'SaqibGallery_Image.jpg';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(blobUrl);
+            } catch (err) {
+                console.error("Download Error:", err);
+                alert("Download failed. Image will open in a new tab.");
+                window.open(url, '_blank'); // Fallback
+            }
         }
 
-        // Fetch picks from API
-        async function fetchMyPicks() {
+        // Share Image Function (Native Mobile Share)
+        async function shareImage(url, title) {
+            if (navigator.share) {
+                try {
+                    await navigator.share({
+                        title: title || 'Saqib Gallery',
+                        text: 'Check out this awesome photo from Saqib Gallery!',
+                        url: url
+                    });
+                } catch (err) {
+                    console.error('Share Error:', err);
+                }
+            } else {
+                // PC ya puranay browser ke liye (Copy to clipboard)
+                navigator.clipboard.writeText(url);
+                alert("Link copied to clipboard! You can paste it anywhere to share.");
+            }
+        }
+
+        // Fetch and Render Gallery
+        async function loadGallery() {
             const statusDiv = document.getElementById('status-message');
             const loadingDiv = document.getElementById('loading');
-            const gridDiv = document.getElementById('picks-grid');
-            const noResults = document.getElementById('no-results');
-
-            loadingDiv.classList.remove('hidden');
-            gridDiv.classList.add('hidden');
-            noResults.classList.add('hidden');
-            statusDiv.classList.add('hidden');
+            const gridDiv = document.getElementById('gallery-grid');
 
             try {
-                const response = await fetch(PICKS_API_URL);
+                const response = await fetch(API_URL);
                 const result = await response.json();
 
                 loadingDiv.classList.add('hidden');
 
                 if (response.ok && result.success) {
-                    allPicks = result.data || [];
+                    gridDiv.classList.remove('hidden');
+                    
+                    result.data.forEach((photo, index) => {
+                        // Portrait size (aspect-[3/4]) apply kiya gaya hai
+                        gridDiv.innerHTML += `
+                            <div class="relative group rounded-xl overflow-hidden aspect-[3/4] bg-zinc-900 border border-white/5 shadow-lg">
+                                <!-- The Image -->
+                                <img src="${photo.image_url}" alt="${photo.title || 'Gallery Image'}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                
+                                <!-- Bottom Gradient & Buttons -->
+                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 pt-12 flex flex-col justify-end">
+                                    <h3 class="text-white text-xs font-bold truncate mb-2 drop-shadow-md">${photo.title || 'Visual Art'}</h3>
+                                    
+                                    <div class="flex items-center gap-2">
+                                        <!-- Share Button -->
+                                        <button onclick="shareImage('${photo.image_url}', '${photo.title}')" class="flex-1 bg-white/10 hover:bg-cyan-500 text-white py-1.5 rounded-lg text-xs font-bold backdrop-blur-sm transition-colors border border-white/10 flex items-center justify-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                                            Share
+                                        </button>
+                                        
+                                        <!-- Download Button -->
+                                        <button onclick="downloadImage('${photo.image_url}', '${photo.title}')" class="flex-1 bg-white/10 hover:bg-emerald-500 text-white py-1.5 rounded-lg text-xs font-bold backdrop-blur-sm transition-colors border border-white/10 flex items-center justify-center gap-1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                            Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    });
 
-                    statusDiv.classList.remove('hidden');
-                    statusDiv.className = 'p-3 mb-8 rounded-2xl font-bold text-xs sm:text-sm text-center max-w-xl mx-auto bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 flex items-center justify-center gap-2';
-                    statusDiv.innerHTML = `<i class="fa-solid fa-circle-check"></i> Connected! Loaded ${result.count || allPicks.length} items directly from Master Hub.`;
-
-                    renderCards(allPicks);
                 } else {
-                    showErrorStatus(`Access Restricted: ${result.error || 'Picks API is disabled or restricted.'}`);
+                    statusDiv.classList.remove('hidden');
+                    statusDiv.innerText = `⚠️ API Error: ${result.error || 'API Disabled'}`;
                 }
+
             } catch (error) {
                 loadingDiv.classList.add('hidden');
-                showErrorStatus(`CORS Restriction: Master Hub blocked this connection. Please whitelist your domain in the Admin Panel.`);
+                statusDiv.classList.remove('hidden');
+                statusDiv.innerText = `🛑 Security Alert (CORS): Master Hub blocked this connection. Please whitelist this URL in Admin Panel.`;
             }
         }
 
-        function showErrorStatus(msg) {
-            const statusDiv = document.getElementById('status-message');
-            statusDiv.classList.remove('hidden');
-            statusDiv.className = 'p-4 mb-8 rounded-2xl font-medium text-xs sm:text-sm text-center max-w-2xl mx-auto bg-red-500/10 text-red-400 border border-red-500/30';
-            statusDiv.innerHTML = `
-                <div class="flex items-center justify-center gap-2 font-bold mb-1">
-                    <i class="fa-solid fa-triangle-exclamation"></i> <span>Connection Notice</span>
-                </div>
-                <p class="text-zinc-400 text-xs">${msg}</p>
-            `;
-        }
-
-        // Render Cards strictly from API data
-        function renderCards(picks) {
-            const gridDiv = document.getElementById('picks-grid');
-            const noResults = document.getElementById('no-results');
-
-            gridDiv.innerHTML = '';
-
-            if (!picks || picks.length === 0) {
-                gridDiv.classList.add('hidden');
-                noResults.classList.remove('hidden');
-                return;
-            }
-
-            noResults.classList.add('hidden');
-            gridDiv.classList.remove('hidden');
-
-            picks.forEach((pick, index) => {
-                const apiImage = extractApiImage(pick);
-                const gradient = pick.gradient || 'from-purple-600 to-pink-500';
-                const title = pick.name || pick.title || 'Untitled Pick';
-                const desc = pick.description || 'Exclusive portfolio project by Muhammad Saqib.';
-                const liveUrl = pick.url || '#';
-
-                const card = document.createElement('div');
-                card.className = "group relative glass-box rounded-3xl p-5 flex flex-col justify-between transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(168,85,247,0.2)]";
-
-                // Visual Box: If API has image, show animated image; otherwise show animated gradient art
-                let visualHtml = '';
-                if (apiImage) {
-                    visualHtml = `
-                        <div class="image-animated-wrapper relative w-full h-52 bg-zinc-900 mb-5 rounded-2xl border border-white/5 cursor-pointer" onclick="openModal(${index})">
-                            <img src="${apiImage}" alt="${title}" loading="lazy" class="w-full h-full object-cover">
-                            
-                            <div class="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase text-white border border-white/10 flex items-center gap-1.5">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                                PICK #${index + 1}
-                            </div>
-
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center hover:bg-purple-600 transition-colors">
-                                    <i class="fa-solid fa-expand text-sm"></i>
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    // Styled animated gradient header if API did not provide an image URL for this pick
-                    visualHtml = `
-                        <div class="relative w-full h-44 bg-gradient-to-tr ${gradient} opacity-90 rounded-2xl mb-5 flex flex-col items-center justify-center p-6 text-center cursor-pointer shadow-lg group-hover:scale-[1.02] transition-transform duration-500" onclick="openModal(${index})">
-                            <div class="absolute inset-0 bg-black/20 rounded-2xl"></div>
-                            <div class="relative z-10">
-                                <span class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center mx-auto mb-2 text-white">
-                                    <i class="fa-solid fa-layer-group text-lg"></i>
-                                </span>
-                                <span class="text-xs font-bold text-white/80 tracking-widest uppercase">PICK #${index + 1}</span>
-                            </div>
-                        </div>
-                    `;
-                }
-
-                card.innerHTML = `
-                    <!-- Top Line Accent -->
-                    <div class="absolute top-0 left-6 right-6 h-[2px] bg-gradient-to-r ${gradient} rounded-full opacity-60 group-hover:opacity-100 transition-opacity"></div>
-
-                    <div>
-                        ${visualHtml}
-                        <h3 class="text-xl font-extrabold text-white mb-2 group-hover:text-purple-300 transition-colors line-clamp-1">${title}</h3>
-                        <p class="text-zinc-400 text-xs sm:text-sm line-clamp-2 mb-6 leading-relaxed">${desc}</p>
-                    </div>
-
-                    <!-- Bottom Controls: Download & Share -->
-                    <div class="pt-4 border-t border-white/5 flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-2">
-                            <!-- Download Button -->
-                            <button onclick="handleDownload('${apiImage}', '${title}', '${gradient}')" title="Download Image" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-purple-600/30 hover:text-purple-300 text-zinc-300 flex items-center justify-center transition-all border border-white/5 active:scale-90">
-                                <i class="fa-solid fa-arrow-down text-xs"></i>
-                            </button>
-                            <!-- Share Button -->
-                            <button onclick="handleShare('${title}', '${desc}', '${liveUrl}')" title="Share Project" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-pink-600/30 hover:text-pink-300 text-zinc-300 flex items-center justify-center transition-all border border-white/5 active:scale-90">
-                                <i class="fa-solid fa-share-nodes text-xs"></i>
-                            </button>
-                        </div>
-
-                        <!-- Open Live Link -->
-                        <a href="${liveUrl}" target="_blank" class="flex items-center gap-2 px-3.5 py-2 bg-purple-600/20 hover:bg-purple-600 text-purple-300 hover:text-white rounded-xl text-xs font-bold transition-all border border-purple-500/30">
-                            <span>Open</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
-                    </div>
-                `;
-
-                gridDiv.appendChild(card);
-            });
-        }
-
-        // Live Search Filter
-        document.getElementById('search-input').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            const filtered = allPicks.filter(p => {
-                const name = (p.name || p.title || '').toLowerCase();
-                const desc = (p.description || '').toLowerCase();
-                return name.includes(query) || desc.includes(query);
-            });
-            renderCards(filtered);
-        });
-
-        // Open Lightbox Modal
-        function openModal(index) {
-            const pick = allPicks[index];
-            if (!pick) return;
-
-            const apiImage = extractApiImage(pick);
-            const title = pick.name || pick.title || 'Untitled Pick';
-            const desc = pick.description || 'Exclusive portfolio project by Muhammad Saqib.';
-            const liveUrl = pick.url || '#';
-            const gradient = pick.gradient || 'from-purple-600 to-pink-500';
-
-            const modalImgWrapper = document.getElementById('modal-img-wrapper');
-            const modalNoImg = document.getElementById('modal-no-img');
-
-            if (apiImage) {
-                modalImgWrapper.classList.remove('hidden');
-                modalNoImg.classList.add('hidden');
-                document.getElementById('modal-img').src = apiImage;
-            } else {
-                modalImgWrapper.classList.add('hidden');
-                modalNoImg.classList.remove('hidden');
-                modalNoImg.className = `h-72 sm:h-80 rounded-2xl flex flex-col items-center justify-center p-6 text-center bg-gradient-to-tr ${gradient}`;
-                document.getElementById('modal-fallback-title').textContent = title;
-            }
-
-            document.getElementById('modal-title').textContent = title;
-            document.getElementById('modal-desc').textContent = desc;
-            document.getElementById('modal-link-btn').href = liveUrl;
-
-            document.getElementById('modal-download-btn').onclick = () => handleDownload(apiImage, title, gradient);
-            document.getElementById('modal-share-btn').onclick = () => handleShare(title, desc, liveUrl);
-
-            const modal = document.getElementById('lightbox-modal');
-            const container = document.getElementById('modal-container');
-            modal.classList.remove('opacity-0', 'pointer-events-none');
-            container.classList.remove('scale-95');
-            container.classList.add('scale-100');
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('lightbox-modal');
-            const container = document.getElementById('modal-container');
-            container.classList.remove('scale-100');
-            container.classList.add('scale-95');
-            modal.classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        // Download logic
-        async function handleDownload(imageUrl, title, gradient) {
-            showToast("Starting download...", "fa-solid fa-spinner fa-spin");
-
-            const safeName = (title || 'pick').replace(/\s+/g, '_').toLowerCase();
-
-            if (imageUrl) {
-                try {
-                    const res = await fetch(imageUrl, { mode: 'cors' });
-                    const blob = await res.blob();
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${safeName}.png`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(url);
-                    showToast("Downloaded successfully!", "fa-solid fa-circle-check");
-                } catch (e) {
-                    // Fallback to direct anchor link
-                    const a = document.createElement('a');
-                    a.href = imageUrl;
-                    a.target = '_blank';
-                    a.download = `${safeName}.png`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    showToast("Image opened for saving!", "fa-solid fa-arrow-up-right-from-square");
-                }
-            } else {
-                // If API pick has no image file, generate graphic card as PNG
-                const canvas = document.createElement('canvas');
-                canvas.width = 800;
-                canvas.height = 500;
-                const ctx = canvas.getContext('2d');
-
-                const bgGrad = ctx.createLinearGradient(0, 0, 800, 500);
-                bgGrad.addColorStop(0, '#7c3aed');
-                bgGrad.addColorStop(1, '#db2777');
-                ctx.fillStyle = bgGrad;
-                ctx.fillRect(0, 0, 800, 500);
-
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 38px Outfit, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText(title, 400, 240);
-
-                ctx.font = '20px Outfit, sans-serif';
-                ctx.fillStyle = 'rgba(255,255,255,0.7)';
-                ctx.fillText('Saqib Visuals Master Pick', 400, 290);
-
-                const dataUrl = canvas.toDataURL('image/png');
-                const a = document.createElement('a');
-                a.href = dataUrl;
-                a.download = `${safeName}_card.png`;
-                a.click();
-                showToast("Visual card downloaded!", "fa-solid fa-circle-check");
-            }
-        }
-
-        // Share logic
-        let shareInfo = { title: '', text: '', url: '' };
-
-        function handleShare(title, desc, url) {
-            shareInfo = {
-                title: title,
-                text: `${title} - Check out this project on Saqib Visuals:`,
-                url: url && url !== '#' ? url : window.location.href
-            };
-
-            if (navigator.share) {
-                navigator.share(shareInfo).then(() => {
-                    showToast("Shared successfully!", "fa-solid fa-circle-check");
-                }).catch(() => {});
-            } else {
-                document.getElementById('share-link-input').value = shareInfo.url;
-                document.getElementById('share-modal').classList.remove('opacity-0', 'pointer-events-none');
-            }
-        }
-
-        function closeShareModal() {
-            document.getElementById('share-modal').classList.add('opacity-0', 'pointer-events-none');
-        }
-
-        function shareToPlatform(platform) {
-            const text = encodeURIComponent(shareInfo.text);
-            const url = encodeURIComponent(shareInfo.url);
-            let targetUrl = '';
-
-            if (platform === 'whatsapp') targetUrl = `https://api.whatsapp.com/send?text=${text}%20${url}`;
-            if (platform === 'twitter') targetUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-            if (platform === 'telegram') targetUrl = `https://t.me/share/url?url=${url}&text=${text}`;
-            if (platform === 'facebook') targetUrl = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-
-            if (targetUrl) window.open(targetUrl, '_blank', 'width=600,height=500');
-        }
-
-        function copyShareLink() {
-            const val = document.getElementById('share-link-input').value;
-            navigator.clipboard.writeText(val).then(() => {
-                showToast("Link copied to clipboard!", "fa-solid fa-clipboard-check");
-                closeShareModal();
-            });
-        }
-
-        // Toast Helper
-        let toastTimer;
-        function showToast(msg, icon = "fa-solid fa-circle-check") {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-text').textContent = msg;
-            document.getElementById('toast-icon').className = icon;
-            toast.classList.remove('opacity-0', 'translate-y-20', 'pointer-events-none');
-            toast.classList.add('opacity-100', 'translate-y-0');
-
-            clearTimeout(toastTimer);
-            toastTimer = setTimeout(() => {
-                toast.classList.remove('opacity-100', 'translate-y-0');
-                toast.classList.add('opacity-0', 'translate-y-20', 'pointer-events-none');
-            }, 3000);
-        }
-
-        // Keyboard & Backdrop event listeners
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeModal();
-                closeShareModal();
-            }
-        });
-        document.getElementById('lightbox-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'lightbox-modal') closeModal();
-        });
-        document.getElementById('share-modal').addEventListener('click', (e) => {
-            if (e.target.id === 'share-modal') closeShareModal();
-        });
-
-        // Initialize API Fetch on load
-        fetchMyPicks();
+        // Initialize
+        loadGallery();
     </script>
 </body>
 </html>
