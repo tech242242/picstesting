@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Picks | API Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-white min-h-screen p-8 font-sans">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Title Section -->
+        <div class="flex items-center gap-3 mb-2">
+            <span class="text-3xl">⭐</span>
+            <h1 class="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-fuchsia-500">
+                My Top Picks Consumer
+            </h1>
+        </div>
+        <p class="text-gray-400 mb-8 ml-11">Fetching ONLY featured picks from MrSaqib242 Master Hub...</p>
+
+        <!-- Status / Error Message -->
+        <div id="status-message" class="hidden p-4 mb-6 rounded-xl font-bold text-sm shadow-lg"></div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="text-center py-12">
+            <div class="inline-block w-8 h-8 border-4 border-violet-500 border-t-transparent rounded-full animate-spin shadow-[0_0_15px_rgba(139,92,246,0.5)]"></div>
+            <p class="mt-4 text-violet-400/60 text-sm font-semibold tracking-widest uppercase">Fetching Picks...</p>
+        </div>
+
+        <!-- Picks Grid -->
+        <div id="picks-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+            <!-- Picks will be injected here via JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        // AAPKI PICKS API KA LINK
+        const PICKS_API_URL = "https://mrsaqib242.vercel.app/api/public/picks";
+
+        async function fetchPicks() {
+            const statusDiv = document.getElementById('status-message');
+            const loadingDiv = document.getElementById('loading');
+            const gridDiv = document.getElementById('picks-grid');
+
+            try {
+                const response = await fetch(PICKS_API_URL);
+                const result = await response.json();
+
+                loadingDiv.classList.add('hidden');
+
+                if (response.ok && result.success) {
+                    // 🟢 SUCCESS
+                    statusDiv.classList.remove('hidden');
+                    statusDiv.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/30');
+                    statusDiv.innerHTML = `✅ Master Hub ne <b>${result.count}</b> Picks return kiye hain!`;
+
+                    gridDiv.classList.remove('hidden');
+                    
+                    // Har Pick ka card banana
+                    result.data.forEach(pick => {
+                        gridDiv.innerHTML += `
+                            <div class="relative bg-[#0f0f13] p-6 rounded-2xl border border-white/5 hover:border-violet-500/50 hover:shadow-[0_0_20px_rgba(139,92,246,0.15)] transition-all duration-300 overflow-hidden group">
+                                <!-- Top Gradient Line -->
+                                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                                
+                                <h3 class="text-lg font-bold mb-2 text-white">${pick.name}</h3>
+                                <p class="text-zinc-500 text-xs mb-5 line-clamp-2">${pick.description || 'Premium Project'}</p>
+                                
+                                <a href="${pick.url}" target="_blank" class="inline-flex w-full items-center justify-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-violet-500 text-white text-xs font-bold rounded-xl transition-all duration-300">
+                                    View Project
+                                </a>
+                            </div>
+                        `;
+                    });
+
+                } else {
+                    // 🔴 API KILLED BY ADMIN OR SERVER ERROR
+                    statusDiv.classList.remove('hidden');
+                    statusDiv.classList.add('bg-red-500/10', 'text-red-400', 'border', 'border-red-500/30');
+                    statusDiv.innerHTML = `❌ Error: ${result.error || 'API is temporarily disabled.'}`;
+                }
+
+            } catch (error) {
+                // 🔴 CORS ERROR (Domain not allowed)
+                loadingDiv.classList.add('hidden');
+                statusDiv.classList.remove('hidden');
+                statusDiv.classList.add('bg-red-500/10', 'text-red-400', 'border', 'border-red-500/30');
+                statusDiv.innerHTML = `🛑 CORS Error: Master Hub (Bouncer) blocked this website. Please Whitelist this domain in your Admin Panel!`;
+            }
+        }
+
+        // Script chalao
+        fetchPicks();
+    </script>
+</body>
+</html>
