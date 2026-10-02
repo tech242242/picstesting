@@ -1,144 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saqib Gallery</title>
-    <!-- Tailwind CSS for Styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* Custom scrollbar chupanay ke liye */
-        ::-webkit-scrollbar { width: 0px; background: transparent; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saqib Gallery — refined</title>
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- custom scrollbar hidden + extra smoothness -->
+  <style>
+    ::-webkit-scrollbar { width: 0px; background: transparent; }
+    /* subtle glow & line animation */
+    @keyframes linePulse {
+      0% { transform: scaleX(0.2); opacity: 0.3; }
+      50% { transform: scaleX(1); opacity: 1; }
+      100% { transform: scaleX(0.2); opacity: 0.3; }
+    }
+    .line-loader {
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, #06b6d4, #3b82f6, #06b6d4);
+      border-radius: 999px;
+      animation: linePulse 1.6s infinite ease-in-out;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.7);
+    }
+    /* card hover subtle lift */
+    .gallery-card {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .gallery-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 30px -10px rgba(0, 255, 255, 0.25), 0 0 0 1px rgba(6, 182, 212, 0.3);
+    }
+  </style>
 </head>
-<body class="bg-[#0a0a0a] text-white min-h-screen font-sans pb-10">
+<body class="bg-[#0a0a0a] text-white min-h-screen font-sans pb-10 antialiased">
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 py-4 mb-4 shadow-lg">
-        <h1 class="text-2xl md:text-3xl font-black text-center tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
-            Saqib Gallery
-        </h1>
-    </header>
+  <!-- Header with refined gradient -->
+  <header class="sticky top-0 z-50 bg-[#0a0a0a]/90 backdrop-blur-md border-b border-white/10 py-4 mb-4 shadow-lg shadow-cyan-500/5">
+    <div class="max-w-6xl mx-auto px-4 flex items-center justify-between">
+      <h1 class="text-2xl md:text-3xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 drop-shadow-sm">
+        Saqib Gallery
+      </h1>
+      <span class="text-[10px] uppercase tracking-widest text-white/40 border border-white/10 px-2 py-1 rounded-full">visual picks</span>
+    </div>
+  </header>
 
-    <main class="max-w-6xl mx-auto px-2 md:px-4">
-        
-        <!-- Status & Loading -->
-        <div id="status-message" class="hidden text-center text-red-400 text-sm font-bold bg-red-500/10 border border-red-500/20 rounded-lg p-3 my-4"></div>
-        
-        <div id="loading" class="flex flex-col items-center justify-center py-20">
-            <div class="w-10 h-10 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin shadow-[0_0_15px_rgba(6,182,212,0.5)]"></div>
-            <p class="mt-4 text-cyan-400/80 text-xs font-bold tracking-[0.2em] uppercase">Loading Photos...</p>
-        </div>
+  <main class="max-w-6xl mx-auto px-2 md:px-4">
 
-        <!-- 📸 MOBILE MEIN 2 GRIDS (grid-cols-2) AUR PORTRAIT -->
-        <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4 hidden">
-            <!-- Images will be injected here -->
-        </div>
+    <!-- status message -->
+    <div id="status-message" class="hidden text-center text-red-400 text-sm font-bold bg-red-500/10 border border-red-500/20 rounded-xl p-3 my-4 backdrop-blur-sm"></div>
 
-    </main>
+    <!-- ⏳ LOADING: horizontal line animation (instead of spinner) -->
+    <div id="loading" class="flex flex-col items-center justify-center py-24">
+      <div class="line-loader"></div>
+      <p class="mt-5 text-cyan-400/80 text-xs font-bold tracking-[0.3em] uppercase animate-pulse">loading photos</p>
+    </div>
 
-    <script>
-        const API_URL = "https://mrsaqib242.vercel.app/api/public/picks"; // Gallery API
+    <!-- gallery grid (2 cols mobile, 3 md, 4 lg) -->
+    <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5 hidden">
+      <!-- injected by js -->
+    </div>
+  </main>
 
-        // Download Image Function (Direct Save to Device)
-        async function downloadImage(url, title) {
-            try {
-                // Button ko loading state dikhanay ke liye
-                const response = await fetch(url);
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                
-                const link = document.createElement('a');
-                link.href = blobUrl;
-                link.download = title ? `SaqibGallery_${title.replace(/\s+/g, '_')}.jpg` : 'SaqibGallery_Image.jpg';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                URL.revokeObjectURL(blobUrl);
-            } catch (err) {
-                console.error("Download Error:", err);
-                alert("Download failed. Image will open in a new tab.");
-                window.open(url, '_blank'); // Fallback
-            }
+  <!-- footer hint -->
+  <div class="max-w-6xl mx-auto px-4 mt-10 text-center text-white/20 text-[10px] tracking-widest">
+    TAP AND HOLD TO SAVE • SHARE WITH EASE
+  </div>
+
+  <script>
+    const API_URL = "https://mrsaqib242.vercel.app/api/public/picks";
+
+    // ---------- DOWNLOAD ----------
+    async function downloadImage(url, title) {
+      try {
+        const response = await fetch(url);
+        const blob = await response.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = title ? `SaqibGallery_${title.replace(/\s+/g, '_')}.jpg` : 'SaqibGallery_Image.jpg';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(blobUrl);
+      } catch (err) {
+        console.error("Download Error:", err);
+        alert("Download failed. Opening image in new tab.");
+        window.open(url, '_blank');
+      }
+    }
+
+    // ---------- SHARE ----------
+    async function shareImage(url, title) {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: title || 'Saqib Gallery',
+            text: 'Check out this photo from Saqib Gallery!',
+            url: url
+          });
+        } catch (err) {
+          console.error('Share Error:', err);
+        }
+      } else {
+        navigator.clipboard.writeText(url);
+        alert("🔗 Link copied! Share it anywhere.");
+      }
+    }
+
+    // ---------- RENDER GALLERY ----------
+    async function loadGallery() {
+      const statusDiv = document.getElementById('status-message');
+      const loadingDiv = document.getElementById('loading');
+      const gridDiv = document.getElementById('gallery-grid');
+
+      try {
+        const response = await fetch(API_URL);
+        const result = await response.json();
+
+        // hide loading animation
+        loadingDiv.classList.add('hidden');
+
+        if (response.ok && result.success && Array.isArray(result.data)) {
+          gridDiv.classList.remove('hidden');
+
+          // if no images, show gentle message
+          if (result.data.length === 0) {
+            statusDiv.classList.remove('hidden');
+            statusDiv.innerText = '✨ No photos in the gallery yet.';
+            return;
+          }
+
+          // build all cards (with improved structure & subtle animation)
+          let cardsHTML = '';
+          result.data.forEach((photo) => {
+            const safeTitle = photo.title ? photo.title.replace(/'/g, "\\'") : 'Visual Art';
+            cardsHTML += `
+              <div class="gallery-card relative rounded-2xl overflow-hidden aspect-[3/4] bg-zinc-900/80 border border-white/5 shadow-xl">
+                <img 
+                  src="${photo.image_url}" 
+                  alt="${photo.title || 'Gallery image'}" 
+                  loading="lazy" 
+                  class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
+                />
+                <!-- dark gradient overlay -->
+                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/60 to-transparent p-3 pt-12 flex flex-col justify-end">
+                  <h3 class="text-white text-xs font-bold truncate mb-2 drop-shadow-md tracking-wide">
+                    ${photo.title || 'Visual Art'}
+                  </h3>
+                  <div class="flex items-center gap-2">
+                    <button 
+                      onclick="shareImage('${photo.image_url}', '${safeTitle}')" 
+                      class="flex-1 bg-white/10 hover:bg-cyan-500/90 text-white py-2 rounded-xl text-[11px] font-bold backdrop-blur-sm transition-all duration-200 border border-white/10 flex items-center justify-center gap-1.5 active:scale-95"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                      Share
+                    </button>
+                    <button 
+                      onclick="downloadImage('${photo.image_url}', '${safeTitle}')" 
+                      class="flex-1 bg-white/10 hover:bg-emerald-500/90 text-white py-2 rounded-xl text-[11px] font-bold backdrop-blur-sm transition-all duration-200 border border-white/10 flex items-center justify-center gap-1.5 active:scale-95"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+          gridDiv.innerHTML = cardsHTML;
+
+        } else {
+          statusDiv.classList.remove('hidden');
+          statusDiv.innerText = `⚠️ ${result.error || 'Unable to load gallery'}`;
         }
 
-        // Share Image Function (Native Mobile Share)
-        async function shareImage(url, title) {
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: title || 'Saqib Gallery',
-                        text: 'Check out this awesome photo from Saqib Gallery!',
-                        url: url
-                    });
-                } catch (err) {
-                    console.error('Share Error:', err);
-                }
-            } else {
-                // PC ya puranay browser ke liye (Copy to clipboard)
-                navigator.clipboard.writeText(url);
-                alert("Link copied to clipboard! You can paste it anywhere to share.");
-            }
-        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        loadingDiv.classList.add('hidden');
+        statusDiv.classList.remove('hidden');
+        statusDiv.innerText = `🛑 Connection issue — please check network or CORS settings.`;
+      }
+    }
 
-        // Fetch and Render Gallery
-        async function loadGallery() {
-            const statusDiv = document.getElementById('status-message');
-            const loadingDiv = document.getElementById('loading');
-            const gridDiv = document.getElementById('gallery-grid');
-
-            try {
-                const response = await fetch(API_URL);
-                const result = await response.json();
-
-                loadingDiv.classList.add('hidden');
-
-                if (response.ok && result.success) {
-                    gridDiv.classList.remove('hidden');
-                    
-                    result.data.forEach((photo, index) => {
-                        // Portrait size (aspect-[3/4]) apply kiya gaya hai
-                        gridDiv.innerHTML += `
-                            <div class="relative group rounded-xl overflow-hidden aspect-[3/4] bg-zinc-900 border border-white/5 shadow-lg">
-                                <!-- The Image -->
-                                <img src="${photo.image_url}" alt="${photo.title || 'Gallery Image'}" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                
-                                <!-- Bottom Gradient & Buttons -->
-                                <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-3 pt-12 flex flex-col justify-end">
-                                    <h3 class="text-white text-xs font-bold truncate mb-2 drop-shadow-md">${photo.title || 'Visual Art'}</h3>
-                                    
-                                    <div class="flex items-center gap-2">
-                                        <!-- Share Button -->
-                                        <button onclick="shareImage('${photo.image_url}', '${photo.title}')" class="flex-1 bg-white/10 hover:bg-cyan-500 text-white py-1.5 rounded-lg text-xs font-bold backdrop-blur-sm transition-colors border border-white/10 flex items-center justify-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
-                                            Share
-                                        </button>
-                                        
-                                        <!-- Download Button -->
-                                        <button onclick="downloadImage('${photo.image_url}', '${photo.title}')" class="flex-1 bg-white/10 hover:bg-emerald-500 text-white py-1.5 rounded-lg text-xs font-bold backdrop-blur-sm transition-colors border border-white/10 flex items-center justify-center gap-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                                            Save
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    });
-
-                } else {
-                    statusDiv.classList.remove('hidden');
-                    statusDiv.innerText = `⚠️ API Error: ${result.error || 'API Disabled'}`;
-                }
-
-            } catch (error) {
-                loadingDiv.classList.add('hidden');
-                statusDiv.classList.remove('hidden');
-                statusDiv.innerText = `🛑 Security Alert (CORS): Master Hub blocked this connection. Please whitelist this URL in Admin Panel.`;
-            }
-        }
-
-        // Initialize
-        loadGallery();
-    </script>
+    // start
+    loadGallery();
+  </script>
 </body>
 </html>
